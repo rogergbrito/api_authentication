@@ -7,7 +7,8 @@ export async function getAllUsers(req: Request, res: Response) {
   try {
     const query = `
     SELECT id, name, email, active, role
-    FROM users;
+    FROM users
+    ORDER BY id ASC;
     `
 
     const result = await pool.query(query);
@@ -17,6 +18,7 @@ export async function getAllUsers(req: Request, res: Response) {
 
     return res.status(200).json(result.rows);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: 'Error when searching for users' });
   };
 };
@@ -39,7 +41,7 @@ export async function getUserById(req: Request, res: Response) {
 
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "Error in application" });
+    return res.status(500).json({ error: "API error" });
   };
 };
 
@@ -61,7 +63,8 @@ export async function updateUserPut(req: Request, res: Response) {
     if (user.role !== 'admin' && user.role !== 'regular') return res.status(400).json({ error: "Role parameter must be admin or regular" });
 
     const query = `
-    UPDATE users SET name = $1, email = $2, active = $3, role = $4
+    UPDATE users 
+    SET name = $1, email = $2, active = $3, role = $4
     WHERE id = $5;
     `;
 

@@ -37,6 +37,6 @@ export async function signup(req: Request, res: Response) {
     return res.status(201).json({ message: "Created" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Error in application" });
+    return res.status(500).json({ error: "API error" });
   };
 };
