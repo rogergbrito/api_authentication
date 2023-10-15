@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  api_autenticacao_container:
+    image: api_autenticacao:1.0.0
+    ports:
+      - "8001:3001"
+    networks:
+      - network_application
+
+  db:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - ./db.env
+    ports:
+      - "8002:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    networks:
+      - network_application
+
+volumes:
+  postgres_volume:
+
+networks:
+  network_application:
