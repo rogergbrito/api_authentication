@@ -8,5 +8,5 @@ export interface UpdateUserInterface{
   name: string,
   email: string,
   active: boolean,
-  role: string
+  admin: boolean,
 }

@@ -20,7 +20,7 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
 
     if (!decodedToken) return res.status(401).json({ message: "Invalid token" });
 
-    const { id, email, role } = decodedToken as JwtPayload;
+    const { id, email, admin } = decodedToken as JwtPayload;
 
     const query = `
     SELECT *
@@ -33,7 +33,7 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
 
     if (result.rowCount === 0) return res.status(401).json({ message: "Invalid or deleted user" });
 
-    if (role.toString() !== 'admin') return res.status(401).json({ message: "Route accessible only to administrator" });
+    if (admin === false) return res.status(401).json({ message: "User without permission" });
 
     return next();
 

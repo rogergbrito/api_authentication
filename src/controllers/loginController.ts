@@ -28,9 +28,9 @@ export async function login(req: Request, res: Response) {
 
     if (!passwordMatch) return res.status(401).json({ message: "Incorrect email or password" });
 
-    const { id, role } = result.rows[0];
+    const { id, admin } = result.rows[0];
 
-    const token = signToken({ id, email, role });
+    const token = signToken({ id, email, admin });
 
     return res.status(200).json({ token });
   } catch(error) {

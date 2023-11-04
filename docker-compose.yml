@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api_autenticacao_container:
-    image: api_autenticacao:1.0.0
+    image: api_autenticacao:1.0.2
     ports:
       - "8001:3001"
     networks:
